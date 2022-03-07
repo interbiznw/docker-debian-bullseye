@@ -24,7 +24,8 @@ RUN cd /tmp && \
 	sed -i '/    document.title =/c\    document.title = "DebianBullseye - noVNC";' /usr/share/novnc/app/ui.js && \
 	mkdir /tmp/config && \
 	rm /usr/share/novnc/app/images/icons/* && \
-	wget -O /usr/bin/DSC_Server.jar https://github.com/interbiznw/docker-debian-bullseye/raw/master/DSC/DscServer-5.8.3.jar 
+	wget -O /usr/bin/DSC_Server.jar https://github.com/interbiznw/docker-debian-bullseye/raw/master/DSC/DscServer-5.8.3.jar && \
+	wget -O /debian/.config/autostart/DSC_Server.desktop https://raw.githubusercontent.com/interbiznw/docker-debian-bullseye/master/DSC/DSC_server.desktop
 	
 
 ENV DATA_DIR=/debian
@@ -54,7 +55,6 @@ RUN mkdir $DATA_DIR	&& \
 
 ADD /scripts/ /opt/scripts/
 COPY /icons/* /usr/share/novnc/app/images/icons/
-COPY /DSC/DSC_server.desktop /debian/.config/autostart/
 COPY /debianbullseye.png /usr/share/backgrounds/xfce/debian.png
 COPY /config/ /tmp/config/
 RUN chmod -R 770 /opt/scripts/
