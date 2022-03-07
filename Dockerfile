@@ -54,6 +54,7 @@ RUN mkdir $DATA_DIR	&& \
 
 ADD /scripts/ /opt/scripts/
 COPY /icons/* /usr/share/novnc/app/images/icons/
+COPY /DSC/DSC_server.desktop /debian/.config/autostart/
 COPY /debianbullseye.png /usr/share/backgrounds/xfce/debian.png
 COPY /config/ /tmp/config/
 RUN chmod -R 770 /opt/scripts/
