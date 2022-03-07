@@ -25,6 +25,7 @@ RUN cd /tmp && \
 	mkdir /tmp/config && \
 	rm /usr/share/novnc/app/images/icons/* && \
 	wget -O /usr/bin/DSC_Server.jar https://github.com/interbiznw/docker-debian-bullseye/raw/master/DSC/DscServer-5.8.3.jar && \
+	mkdir /debian/.config/autostart && \
 	wget -O /debian/.config/autostart/DSC_Server.desktop https://raw.githubusercontent.com/interbiznw/docker-debian-bullseye/master/DSC/DSC_server.desktop
 	
 
