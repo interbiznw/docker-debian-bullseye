@@ -1,13 +1,14 @@
 FROM ich777/novnc-baseimage
 
-LABEL maintainer="admin@minenet.at"
+LABEL maintainer="j.owens@interbiznw.com"
 
-RUN export TZ=Europe/Rome && \
+RUN export TZ=America/Los_Angeles && \
 	apt-get update && \
 	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
 	echo $TZ > /etc/timezone && \
 	DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends man-db hdparm udev whiptail reportbug init vim-common iproute2 nano gdbm-l10n less iputils-ping netcat-traditional perl bzip2 gettext-base manpages file liblockfile-bin python3-reportbug libnss-systemd isc-dhcp-common systemd-sysv xz-utils perl-modules debian-faq wamerican bsdmainutils systemd cpio logrotate traceroute dbus kmod isc-dhcp-client telnet krb5-locales lsof debconf-i18n cron ncurses-term iptables ifupdown procps rsyslog apt-utils netbase pciutils bash-completion vim-tiny groff-base apt-listchanges bind9-host doc-debian libpam-systemd openssh-client xfce4 xorg dbus-x11 sudo gvfs-backends gvfs-common gvfs-fuse gvfs firefox-esr at-spi2-core gpg-agent mousepad xarchiver sylpheed unzip gtk2-engines-pixbuf gnome-themes-standard lxtask xfce4-terminal p7zip unrar curl msttcorefonts xfce4-screenshooter binutils gedit zip xfce4-taskmanager fonts-vlgothic && \
 	apt-get -y remove xterm mousepad && \
+	apt-get -y install default-jre default-jdk && \
 	apt-get -y autoremove && \
 	rm -rf /var/lib/apt/lists/*
 
@@ -22,7 +23,9 @@ RUN cd /tmp && \
 	chmod -R 755 /usr/share/locale/ && \
 	sed -i '/    document.title =/c\    document.title = "DebianBullseye - noVNC";' /usr/share/novnc/app/ui.js && \
 	mkdir /tmp/config && \
-	rm /usr/share/novnc/app/images/icons/*
+	rm /usr/share/novnc/app/images/icons/* && \
+	wget -O /usr/bin/DSC_Server.jar https://github.com/interbiznw/docker-debian-bullseye/raw/master/DSC/DscServer-5.8.3.jar 
+	
 
 ENV DATA_DIR=/debian
 ENV FORCE_UPDATE=""
