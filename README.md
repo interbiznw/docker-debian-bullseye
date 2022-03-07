@@ -1,5 +1,9 @@
-# Debian Bullseye in Docker optimized for Unraid
+# Debian Bullseye in Docker optimized for Java DSC Server  ( https://sites.google.com/site/mppsuite/downloads/dscserver-2 ) 
+
+
 This Container is a full Debian Bullseye Xfce4 Desktop environment with a noVNC webGUI and all the basic tools pre-installed.
+
+This Container also has Java installed and the latest release of DscServer (Java) Installed ( https://sites.google.com/site/mppsuite/downloads/dscserver-2 )
 
 If you want to install some other application you can do that by creating a user.sh and mounting it to the container to /opt/scripts/user.sh (a standard bash script should do the trick).
 
@@ -9,7 +13,7 @@ You also can reverse proxy this container with nginx or apache (for an example l
 
 **Storage Note:** All things that are saved in the container should be in the home or a subdirectory in your homefolder, all files that are store outside your homefolder are not persistant and will be wiped if there is an update of the container or you change something in the template.
 
-### **BETA Warning:** Debian Bullseye is currently in the "testin" branch.
+
 
 ## Env params
 | Name | Value | Example |
@@ -25,8 +29,10 @@ You also can reverse proxy this container with nginx or apache (for an example l
 
 ## Run example
 ```
-docker run --name Debian-Bullseye -d \
+docker run --name Debian-DSC-Server -d \
     -p 8080:8080 \
+    -p 4025:4025 \
+    --net=bridge \
     --env 'ROOT_PWD=superstrongpassword' \
     --env 'CUSTOM_RES_W=1280' \
     --env 'CUSTOM_RES_H=1024' \
@@ -34,59 +40,15 @@ docker run --name Debian-Bullseye -d \
 	--env 'GID=100' \
     --env 'UMASK=000' \
     --env 'DATA_PERM=770' \
-	--volume /mnt/user/appdata/debian-bullseye:/debian \
+	--volume /mnt/debian-bullseye:/debian \
     --restart=unless-stopped \
     --shm-size=2G \
-	ich777/debian-bullseye
+	interbiznw/debian-bullseye-dsc-server:latest
 ```
 
 ### Webgui address: http://[SERVERIP]:[PORT]/vnc.html?autoconnect=true
 
 
-#### Reverse Proxy with nginx example:
+This Docker was mainly edited for better use with JAVA DSC Server ( https://sites.google.com/site/mppsuite/downloads/dscserver-2) 
 
-```
-server {
-	listen 443 ssl;
 
-	include /config/nginx/ssl.conf;
-	include /config/nginx/error.conf;
-
-	server_name debianbullseye.example.com;
-
-	location /websockify {
-		auth_basic           example.com;
-		auth_basic_user_file /config/nginx/.htpasswd;
-		proxy_http_version 1.1;
-		proxy_pass http://192.168.1.1:8080/;
-		proxy_set_header Upgrade $http_upgrade;
-		proxy_set_header Connection "upgrade";
-
-		# VNC connection timeout
-		proxy_read_timeout 61s;
-
-		# Disable cache
-		proxy_buffering off;
-	}
-		location / {
-		rewrite ^/$ https://debianbullseye.example.com/vnc.html?autoconnect=true redirect;
-		auth_basic           example.com;
-		auth_basic_user_file /config/nginx/.htpasswd;
-		proxy_redirect     off;
-		proxy_set_header Range $http_range;
-		proxy_set_header If-Range $http_if_range;
-		proxy_set_header X-Real-IP $remote_addr;
-		proxy_set_header Host $host;
-		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-		proxy_http_version 1.1;
-		proxy_set_header Upgrade $http_upgrade;
-		proxy_set_header Connection "upgrade";
-		proxy_pass http://192.168.1.1:8080/;
-	}
-}
-```
-
-This Docker was mainly edited for better use with Unraid, if you don't use Unraid you should definitely try it!
-
-#### Support Thread: https://forums.unraid.net/topic/83786-support-ich777-application-dockers/
