@@ -1,4 +1,4 @@
-# Debian Bullseye in Docker optimized for Java DSC Server  ( https://sites.google.com/site/mppsuite/downloads/dscserver-2 ) 
+# Debian Bullseye in Docker optimized for Java DSC Server  (https://sites.google.com/site/mppsuite/downloads/dscserver-2) 
 
 
 This Container is a full Debian Bullseye Xfce4 Desktop environment with a noVNC webGUI and all the basic tools pre-installed.
