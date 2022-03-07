@@ -1,5 +1,5 @@
 #!/bin/sh
-
+mkdir /debian/.config/autostart
 FILE="/debian/.config/autostart/DSC_server.desktop"
 
 /bin/cat <<EOM >$FILE
