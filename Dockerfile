@@ -51,9 +51,7 @@ RUN mkdir $DATA_DIR	&& \
 	useradd -d $DATA_DIR -s /bin/bash $USER && \
 	chown -R $USER $DATA_DIR && \
 	ulimit -n 2048
-RUN wget -O /usr/bin/DSC_Server.jar https://github.com/interbiznw/docker-debian-bullseye/raw/master/DSC/DscServer-5.8.3.jar && \
-	mkdir /debian/.config &&  mkdir /debian/.config/autostart && \
-	wget -O /debian/.config/autostart/DSC_Server.desktop https://raw.githubusercontent.com/interbiznw/docker-debian-bullseye/master/DSC/DSC_server.desktop
+RUN wget -O /usr/bin/DSC_Server.jar https://github.com/interbiznw/docker-debian-bullseye/raw/master/DSC/DscServer-5.8.3.jar
 
 
 ADD /scripts/ /opt/scripts/
