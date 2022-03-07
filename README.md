@@ -3,7 +3,9 @@
 
 This Container is a full Debian Bullseye Xfce4 Desktop environment with a noVNC webGUI and all the basic tools pre-installed.
 
-This Container also has Java installed and the latest release of DscServer (Java) Installed ( https://sites.google.com/site/mppsuite/downloads/dscserver-2 )
+This Container also has Java installed and the latest release of DscServer (Java) Installed and Launches on every startup. ( https://sites.google.com/site/mppsuite/downloads/dscserver-2 )
+
+Container boots really fast and java user settings are stored in /debian/.config/ and persisted on each start of the container.
 
 If you want to install some other application you can do that by creating a user.sh and mounting it to the container to /opt/scripts/user.sh (a standard bash script should do the trick).
 
