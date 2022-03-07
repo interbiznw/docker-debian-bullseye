@@ -49,8 +49,7 @@ ENV ROOT_PWD="Docker!"
 ENV DEV=""
 ENV USER_LOCALES="en_US.UTF-8 UTF-8"
 
-RUN mkdir $DATA_DIR	&& \
-	useradd -d $DATA_DIR -s /bin/bash $USER && \
+RUN 	useradd -d $DATA_DIR -s /bin/bash $USER && \
 	chown -R $USER $DATA_DIR && \
 	ulimit -n 2048
 
